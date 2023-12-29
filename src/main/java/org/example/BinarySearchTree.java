@@ -14,7 +14,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         this.size++;
     }
 
-
+    // helper function for insert method
     private Node<T> insertHelper(Node<T> root, T data) {
         if (root == null) {
             root = new Node<>(data);
@@ -44,5 +44,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
         inorderHelper(root.left);
         System.out.print(root.data + " ");
         inorderHelper(root.right);
+    }
+
+
+    public int size(){
+        return this.size;
     }
 }
