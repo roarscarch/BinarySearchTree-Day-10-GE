@@ -22,5 +22,9 @@ public class BSTHandler {
         System.out.print("\nInorder Traversal: ");
         bst.inorder();
         System.out.print("\nSize of BST is: " + bst.size());
+        System.out.println();
+        bst.search(16);
+
+        bst.search(786);
     }
 }

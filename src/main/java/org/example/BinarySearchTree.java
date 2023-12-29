@@ -1,4 +1,5 @@
 package org.example;
+
 public class BinarySearchTree<T extends Comparable<T>> {
     Node<T> root;
     int size;
@@ -8,13 +9,30 @@ public class BinarySearchTree<T extends Comparable<T>> {
         this.size = 0;
     }
 
-
-    public void insert(T data) {
-        root = this.insertHelper(this.root, data);
-        this.size++;
+    public void search(T data) {
+        boolean found = searchHelper(root, data);
+        System.out.println(found ? "Found node " + data : "Cannot find node " + data);
     }
 
-    // helper function for insert method
+    private boolean searchHelper(Node<T> root, T data) {
+        if (root == null) {
+            return false;
+        }
+        int res = data.compareTo(root.data);
+        if (res < 0) {
+            return searchHelper(root.left, data);
+        } else if (res > 0) {
+            return searchHelper(root.right, data);
+        } else {
+            return true;
+        }
+    }
+
+    public void insert(T data) {
+        root = insertHelper(root, data);
+        size++;
+    }
+
     private Node<T> insertHelper(Node<T> root, T data) {
         if (root == null) {
             root = new Node<>(data);
@@ -22,19 +40,17 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
 
         if (data.compareTo(root.data) < 0) {
-            root.left = this.insertHelper(root.left, data);
+            root.left = insertHelper(root.left, data);
         } else {
-            root.right = this.insertHelper(root.right, data);
+            root.right = insertHelper(root.right, data);
         }
 
         return root;
     }
 
-
     public void inorder() {
-        this.inorderHelper(this.root);
+        inorderHelper(root);
     }
-
 
     private void inorderHelper(Node<T> root) {
         if (root == null) {
@@ -46,8 +62,18 @@ public class BinarySearchTree<T extends Comparable<T>> {
         inorderHelper(root.right);
     }
 
+    public int size() {
+        return size;
+    }
 
-    public int size(){
-        return this.size;
+    private static class Node<T> {
+        T data;
+        Node<T> left;
+        Node<T> right;
+
+        public Node(T data) {
+            this.data = data;
+            this.left = this.right = null;
+        }
     }
 }
